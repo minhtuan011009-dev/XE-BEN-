@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ĐẠI CÔNG TRƯỜNG TOÁN 12 • Bản đồ Tư duy & Nghiệm thu Kỹ thuật (Chương 1 - KNTT)</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- KaTeX CSS & Auto-render CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+
+    /* Blueprint Technical Grid Background */
+    .blueprint-bg {
+      background-color: #0f172a;
+      background-image:
+        linear-gradient(rgba(2, 132, 199, 0.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(2, 132, 199, 0.14) 1px, transparent 1px),
+        linear-gradient(rgba(2, 132, 199, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(2, 132, 199, 0.06) 1px, transparent 1px);
+      background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+      background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+    }
+
+    /* Hazard Warning Stripes (Vạch chéo Vàng - Đen công trường) */
+    .hazard-stripe {
+      background: repeating-linear-gradient(
+        -45deg,
+        #f59e0b,
+        #f59e0b 12px,
+        #0f172a 12px,
+        #0f172a 24px
+      );
+    }
+    .hazard-stripe-thin {
+      background: repeating-linear-gradient(
+        -45deg,
+        #fbbf24,
+        #fbbf24 8px,
+        #1e293b 8px,
+        #1e293b 16px
+      );
+    }
+
+    /* Technical Card Corner Rivets (Đinh tán góc phiếu kỹ thuật) */
+    .tech-card {
+      position: relative;
+      background: rgba(30, 41, 59, 0.88);
+      backdrop-filter: blur(8px);
+    }
+    .tech-rivet {
+      width: 6px;
+      height: 6px;
+      border-radius: 9999px;
+      background-color: #64748b;
+      border: 1px solid #0f172a;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35);
+    }
+
+    /* Smooth Collapse for Blueprint Tree */
+    .blueprint-branch {
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease;
+    }
+    .blueprint-branch.collapsed {
+      max-height: 0 !important;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0 !important;
+      pointer-events: none;
+    }
+
+    /* KaTeX single-line crisp styling */
+    .katex {
+      font-size: 1.05em;
+    }
+    .katex-display {
+      margin: 0.35rem 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.25rem 0;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f59e0b;
+    }
+  </style>
+</head>
+
+<body class="blueprint-bg min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Top Hazard Safety Bar -->
+  <div class="h-2.5 w-full hazard-stripe shrink-0"></div>
+
+  <!-- ===================================================================== -->
+  <!-- HEADER: BAN CHỈ HUY ĐẠI CÔNG TRƯỜNG & TIẾN ĐỘ HOÀN THÀNH              -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-md border-b-2 border-amber-500/50 shadow-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+
+      <!-- Left: Site Identity -->
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black shadow-lg shadow-amber-500/25 border-2 border-amber-300 shrink-0">
+            <i data-lucide="hard-hat" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2 py-0.5 text-[10px] font-mono font-extrabold uppercase tracking-widest bg-amber-500 text-slate-950 rounded-sm">
+                SITE-12 • KNTT
+              </span>
+              <span class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-500/40 rounded-sm">
+                BLUEPRINT REV 5.0
+              </span>
+            </div>
+            <h1 class="text-base sm:text-lg font-black tracking-tight text-white uppercase mt-0.5">
+              ĐẠI CÔNG TRƯỜNG TOÁN 12 <span class="text-amber-400 font-mono text-sm sm:text-base">// CHƯƠNG 1: ỨNG DỤNG ĐẠO HÀM</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Mobile Sound Toggle -->
+        <button
+          type="button"
+          onclick="toggleSound()"
+          class="lg:hidden p-2 rounded-lg bg-slate-800 border border-slate-700 text-amber-400 hover:border-amber-500 transition"
+          title="Bật/tắt âm thanh nghiệm thu"
+          aria-label="Bật/tắt âm thanh"
+        >
+          <i id="sound-icon-mobile" data-lucide="volume-2" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Right: Construction Completion Progress & Controls -->
+      <div class="flex items-center justify-between lg:justify-end gap-3 bg-slate-950/90 px-3.5 py-2 rounded-xl border border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-orange-600/20 border border-orange-500/40 text-orange-400 flex items-center justify-center shrink-0">
+            <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+          </div>
+          <div class="min-w-[160px] sm:min-w-[200px]">
+            <div class="flex items-center justify-between text-[11px] font-mono font-bold uppercase">
+              <span class="text-slate-300">Tiến độ Nghiệm thu:</span>
+              <span id="site-progress-pct" class="text-amber-400">0% (0/10)</span>
+            </div>
+            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden mt-1 border border-slate-700">
+              <div
+                id="site-progress-bar"
+                class="h-full bg-gradient-to-r from-amber-500 via-orange-500 to-emerald-500 transition-all duration-500"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 pl-2 border-l border-slate-800">
+          <button
+            id="sound-toggle-btn"
+            type="button"
+            onclick="toggleSound()"
+            class="hidden lg:flex p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 transition"
+            title="Bật/tắt âm thanh còi nghiệm thu"
+            aria-label="Bật/tắt âm thanh"
+          >
+            <i id="sound-icon-desktop" data-lucide="volume-2" class="w-4 h-4"></i>
+          </button>
+          <button
+            id="reset-site-btn"
+            type="button"
+            onclick="resetSiteProgress()"
+            class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-rose-950/80 hover:text-rose-300 hover:border-rose-500/40 text-slate-300 border border-slate-700 text-[11px] font-mono font-bold uppercase transition flex items-center gap-1"
+            title="Đặt lại toàn bộ phiếu nghiệm thu"
+          >
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            <span>Reset</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- CONSTRUCTION PIPELINE NAVIGATION (THANH ĐIỀU HƯỚNG 5 CÔNG ĐOẠN)     -->
+    <!-- =================================================================== -->
+    <div class="bg-slate-950/90 border-t border-slate-800/90">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 overflow-x-auto">
+        <nav id="pipeline-nav" class="flex items-center gap-2 min-w-max" aria-label="Tiến trình 5 công đoạn">
+          <!-- Populated dynamically via JS -->
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN WORKSPACE: MASTER BLUEPRINT OR STAGE INSPECTION VIEW             -->
+  <!-- ===================================================================== -->
+  <main id="main-workspace" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+    <!-- Populated dynamically via JS -->
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- FOOTER: TECHNICAL STAMP & BLUEPRINT LEGEND                            -->
+  <!-- ===================================================================== -->
+  <footer class="mt-auto border-t border-slate-800/80 bg-slate-950/90">
+    <div class="h-1.5 w-full hazard-stripe-thin"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-slate-400">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+        <span>BAN CHỈ HUY CÔNG TRÌNH TOÁN 12 • SGK KẾT NỐI TRI THỨC VỚI CUỘC SỐNG</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="text-sky-400">[BLUEPRINT: SƠ ĐỒ TƯ DUY THẺ]</span>
+        <span class="text-amber-400">[QA/QC: NGHIỆM THU HIỆN TRƯỜNG]</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div id="toast-box" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ===================================================================== -->
+  <!-- DATA ARCHITECTURE & INTERACTIVE ENGINE                                -->
+  <!-- ===================================================================== -->
+  <script>
+    /**
+     * DỮ LIỆU ĐẠI CÔNG TRƯỜNG TOÁN 12 - CHƯƠNG 1 (SGK KẾT NỐI TRI THỨC)
+     * Thiết kế tinh gọn "Less is More":
+     * - Khu vực A: 4 Thẻ Kiểm định Kỹ thuật (Visual Flow Cards) + Cây thu gọn/mở rộng.
+     * - Khu vực B: 2 Phiếu Nghiệm thu Hiện trường (Trắc nghiệm thực tế nhanh).
+     */
+    const CONSTRUCTION_SITE_DATA = {
+      projectInfo: {
+        code: "PROJ-MATH12-CH01",
+        name: "ĐẠI CÔNG TRƯỜNG XÂY DỰNG HÀM SỐ",
+        curriculum: "Toán 12 - Chương 1: Ứng dụng đạo hàm (Kết nối tri thức)"
+      },
+
+      // Dây chuyền quy hoạch tổng thể 5 công đoạn (Master Blueprint Tree)
+      masterBlueprint: {
+        code: "MASTER-00",
+        label: "TỔNG CÔNG TRÌNH: ỨNG DỤNG ĐẠO HÀM & KHẢO SÁT HÀM SỐ",
+        role: "Quy trình 5 Công đoạn Thi công Chuẩn Kỹ thuật",
+        children: [
+          {
+            stageId: "stage-1",
+            code: "CÔNG ĐOẠN 01",
+            shortAction: "Đo độ dốc & Đỉnh/Đáy",
+            title: "Khảo sát Địa hình & Độ dốc (Đơn điệu & Cực trị)",
+            icon: "mountain",
+            accent: "amber",
+            summaryFormula: "$$f'(x) > 0 \\,(\\nearrow), \\quad f'(x) < 0 \\,(\\searrow), \\quad f'(x_0)=0 \\text{ đổi dấu } \\Rightarrow x_{CĐ}, x_{CT}$$",
+            subNodes: [
+              "Độ dốc dương $f'(x) > 0 \\implies$ Địa hình lên dốc (Đồng biến)",
+              "Độ dốc âm $f'(x) < 0 \\implies$ Địa hình xuống dốc (Nghịch biến)",
+              "Đổi dấu $(+) \\to (-)$ tại $x_0 \\implies$ Đỉnh đồi $x_{CĐ}$; đổi dấu $(-) \\to (+) \\implies$ Đáy móng $x_{CT}$",
+              "Bẫy kỹ thuật: Nghiệmkép (bội chẵn) của $f'(x)=0$ không đổi dấu $\\implies$ Không tạo cực trị"
+            ]
+          },
+          {
+            stageId: "stage-2",
+            code: "CÔNG ĐOẠN 02",
+            shortAction: "Kiểm tra tải trọng",
+            title: "Kiểm định Giới hạn Tải trọng & Mức an toàn (GTLN - GTNN)",
+            icon: "gauge",
+            accent: "orange",
+            summaryFormula: "$$M = \\max_{[a;b]} f(x), \\quad m = \\min_{[a;b]} f(x) = \\min\\{f(a), f(b), f(x_i)\\}$$",
+            subNodes: [
+              "Khoanh vùng ranh giới thi công trên đoạn đóng $[a; b]$",
+              "Tìm các điểm đo nội khu $x_i \\in (a; b)$ làm $f'(x_i) = 0$",
+              "So sánh trực tiếp giá trị tại 2 cột mốc biên $f(a), f(b)$ và các điểm $f(x_i)$"
+            ]
+          },
+          {
+            stageId: "stage-3",
+            code: "CÔNG ĐOẠN 03",
+            shortAction: "Dựng hệ giàn giáo",
+            title: "Dựng Hệ Giàn giáo & Hành lang Biên giới (Đường Tiệm cận)",
+            icon: "construction",
+            accent: "sky",
+            summaryFormula: "$$\\text{TCĐ: } x = x_0, \\quad \\text{TCN: } y = y_0, \\quad \\text{TCX: } y = ax + b \\;(a \\neq 0)$$",
+            subNodes: [
+              "Sàn ngang TCN $y = y_0$ khi $\\lim_{x \\to \\pm\\infty} f(x) = y_0$",
+              "Tường chắn gián đoạn TCĐ $x = x_0$ khi $\\lim_{x \\to x_0^\\pm} f(x) = \\pm\\infty$",
+              "Dầm nghiêng chịu lực TCX $y = ax + b$ ($a \\neq 0$) khi $\\lim_{x \\to \\pm\\infty}[f(x) - (ax+b)] = 0$"
+            ]
+          },
+          {
+            stageId: "stage-4",
+            code: "CÔNG ĐOẠN 04",
+            shortAction: "Đổ bê tông kết cấu",
+            title: "Đổ Bê tông & Hoàn thiện Bản vẽ Kết cấu (Khảo sát Đồ thị)",
+            icon: "DraftingCompass",
+            accent: "emerald",
+            summaryFormula: "$$\\text{Bậc 3: Điểm uốn } I\\left(-\\frac{b}{3a}; y_0\\right) \\quad | \\quad \\text{Phân thức: } I = \\text{Giao điểm 2 Tiệm cận}$$",
+            subNodes: [
+              "Kết cấu vòm cầu Bậc 3: $y = ax^3+bx^2+cx+d$ nhận điểm uốn $I(x_0; y_0)$ với $y''(x_0)=0$ làm tâm đối xứng",
+              "Kết cấu Bậc 1 / Bậc 1: $y = \\frac{ax+b}{cx+d}$ nhận giao điểm $\\text{TCĐ} \\cap \\text{TCN}$ làm tâm đối xứng",
+              "Kết cấu Bậc 2 / Bậc 1: $y = \\frac{ax^2+bx+c}{px+q}$ nhận giao điểm $\\text{TCĐ} \\cap \\text{TCX}$ làm tâm đối xứng"
+            ]
+          },
+          {
+            stageId: "stage-5",
+            code: "CÔNG ĐOẠN 05",
+            shortAction: "Tối ưu dự toán",
+            title: "Dự toán Tối ưu Vật liệu & Chi phí Công trình (Ứng dụng Thực tế)",
+            icon: "calculator",
+            accent: "amber",
+            summaryFormula: "$$v(t) = s'(t), \\quad V_{\\max} \\text{ tại } x = \\frac{a}{6}, \\quad P_{\\max} \\text{ khi } R'(x) = C'(x)$$",
+            subNodes: [
+              "Tốc độ vận hành tức thời: Vận tốc $v(t) = s'(t)$, gia tốc $a(t) = v'(t)$, cường độ $I(t) = q'(t)$",
+              "Tối ưu vật liệu: Cắt 4 góc vuông $x$ từ tấm tôn vuông cạnh $a \\implies V_{\\max}$ khi $x = \\frac{a}{6}$",
+              "Tối ưu tài chính dự án: Lợi nhuận $P(x) = R(x) - C(x)$ đạt cực đại khi $R'(x) = C'(x)$"
+            ]
+          }
+        ]
+      },
+
+      // Chi tiết 5 Công đoạn (5 Bài học)
+      stages: [
+        // =====================================================================
+        // CÔNG ĐOẠN 1 (BÀI 1)
+        // =====================================================================
+        {
+          id: "stage-1",
+          stageNumber: 1,
+          code: "STAGE-01 // BÀI 1",
+          name: "Khảo sát Địa hình & Độ dốc",
+          sgkTitle: "Bài 1: Tính đơn điệu và cực trị của hàm số",
+          metaphor: "Đo hệ số góc tiếp tuyến $f'(x)$ để xác định sườn dốc lên, sườn dốc xuống, vị trí đỉnh đồi ($x_{CĐ}$) và đáy móng ($x_{CT}$).",
+          flowCards: [
+            {
+              specCode: "SPEC-1.1",
+              tag: "SƯỜN LÊN DỐC",
+              title: "Hàm số Đồng biến $(\\nearrow)$",
+              badgeColor: "emerald",
+              formula: "$$f'(x) > 0, \\; \\forall x \\in K \\implies f(x) \\text{ đồng biến trên } K$$",
+              note: "Độ dốc dương: Đồ thị đi lên từ trái sang phải."
+            },
+            {
+              specCode: "SPEC-1.2",
+              tag: "SƯỜN XUỐNG DỐC",
+              title: "Hàm số Nghịch biến $(\\searrow)$",
+              badgeColor: "sky",
+              formula: "$$f'(x) < 0, \\; \\forall x \\in K \\implies f(x) \\text{ nghịch biến trên } K$$",
+              note: "Độ dốc âm: Đồ thị đi xuống từ trái sang phải."
+            },
+            {
+              specCode: "SPEC-1.3",
+              tag: "ĐỈNH ĐỒI & ĐÁY MÓNG",
+              title: "Điểm Cực đại & Điểm Cực tiểu",
+              badgeColor: "amber",
+              formula: "$$f'(x_0) = 0: \\quad (+) \\xrightarrow{x_0} (-) \\Rightarrow x_{CĐ} \\quad | \\quad (-) \\xrightarrow{x_0} (+) \\Rightarrow x_{CT}$$",
+              note: "Hoành độ $x_0$ là điểm cực trị của hàm số; $y_0 = f(x_0)$ là giá trị cực trị."
+            },
+            {
+              specCode: "SPEC-1.4",
+              tag: "CẢNH BÁO AN TOÀN",
+              title: "Bẫy Nghiệm Bội Chẵn & Điểm Gián đoạn",
+              badgeColor: "orange",
+              formula: "$$f'(x) = (x - x_0)^{2k} \\cdot g(x) \\implies f'(x) \\text{ không đổi dấu qua } x_0$$",
+              note: "Số điểm cực trị của hàm đa thức bằng số nghiệm bội lẻ của $f'(x) = 0$."
+            }
+          ],
+          inspections: [
+            {
+              code: "QC-101",
+              context: "Trắc địa mặt cắt sườn đồi",
+              question: "Đội khảo sát đo được độ dốc mặt cắt địa hình có phương trình đạo hàm $f'(x) = x^2(x - 2)(x + 3)^3$. Hỏi mặt cắt địa hình này có bao nhiêu điểm cực trị (đỉnh đồi hoặc đáy thung lũng)?",
+              options: [
+                "1 điểm",
+                "2 điểm",
+                "3 điểm",
+                "4 điểm"
+              ],
+              correctIndex: 1,
+              explanation: "Nghiệm $x = 0$ là nghiệm bội chẵn (mũ 2) nên độ dốc không đổi dấu. Chỉ có 2 nghiệm bội lẻ là $x = 2$ (mũ 1) và $x = -3$ (mũ 3) làm $f'(x)$ đổi dấu $\\implies$ Có đúng 2 điểm cực trị."
+            },
+            {
+              code: "QC-102",
+              context: "Kiểm tra độ dốc đường dẫn cầu",
+              question: "Độ cao mặt đường dẫn cầu theo phương ngang $x$ được mô tả bởi $y = -x^3 + 3x^2 + 9x + 2$. Trên khoảng nào dưới đây mặt đường đang **lên dốc** (đồng biến)?",
+              options: [
+                "$(-\\infty; -1)$",
+                "$(-1; 3)$",
+                "$(3; +\\infty)$",
+                "$(-3; 1)$"
+              ],
+              correctIndex: 1,
+              explanation: "Ta có độ dốc $y' = -3x^2 + 6x + 9 = 0 \\Leftrightarrow x = -1$ hoặc $x = 3$. Do $a = -3 < 0$ nên $y' > 0 \\Leftrightarrow x \\in (-1; 3)$. Vậy mặt đường lên dốc trên khoảng $(-1; 3)$."
+            }
+          ]
+        },
+
+        // =====================================================================
+        // CÔNG ĐOẠN 2 (BÀI 2)
+        // =====================================================================
+        {
+          id: "stage-2",
+          stageNumber: 2,
+          code: "STAGE-02 // BÀI 2",
+          name: "Kiểm định Giới hạn Tải trọng",
+          sgkTitle: "Bài 2: Giá trị lớn nhất và giá trị nhỏ nhất của hàm số",
+          metaphor: "Xác định ngưỡng chịu tải cao nhất ($M = \\max$) và độ võng thấp nhất ($m = \\min$) trong phạm vi rào chắn công trường $[a; b]$.",
+          flowCards: [
+            {
+              specCode: "SPEC-2.1",
+              tag: "BƯỚC 1: KHOANH VÙNG",
+              title: "Ranh giới Thi công Đoạn đóng $[a; b]$",
+              badgeColor: "sky",
+              formula: "$$x \\in [a; b], \\quad f'(x_i) = 0 \\text{ với } x_i \\in (a; b)$$",
+              note: "Loại bỏ ngay mọi nghiệm $x_i$ nằm ngoài phạm vi rào chắn $[a; b]$."
+            },
+            {
+              specCode: "SPEC-2.2",
+              tag: "BƯỚC 2: ĐO TẢI TRỌNG",
+              title: "Kiểm tra Mốc Biên & Điểm Tới hạn",
+              badgeColor: "amber",
+              formula: "$$\\text{Tính trực tiếp: } f(a), \\; f(b) \\text{ và các giá trị } f(x_i)$$",
+              note: "Cực trị chỉ là cục bộ; GTLN & GTNN có thể rơi vào 2 đầu mút biên $a$ hoặc $b$."
+            },
+            {
+              specCode: "SPEC-2.3",
+              tag: "BƯỚC 3: CHỐT THÔNG SỐ",
+              title: "Tải trọng Cực đại & Tối thiểu",
+              badgeColor: "emerald",
+              formula: "$$M = \\max_{[a;b]} f(x) = \\max\\{f(a), f(b), f(x_i)\\}, \\quad m = \\min_{[a;b]} f(x)$$",
+              note: "Hàm đơn điệu trên $[a;b]$ luôn đạt $\\max, \\min$ ngay tại hai đầu mút $a, b$."
+            },
+            {
+              specCode: "SPEC-2.4",
+              tag: "KHOẢNG MỞ",
+              title: "Tải trọng trên Miền Mở $(a; b)$",
+              badgeColor: "orange",
+              formula: "$$\\text{Chỉ có 1 cực tiểu } x_0 \\in (a; b) \\implies \\min_{(a;b)} f(x) = f(x_0)$$",
+              note: "Áp dụng bất đẳng thức AM-GM hoặc bảng biến thiên khi ranh giới tiến ra $+\\infty$."
+            }
+          ],
+          inspections: [
+            {
+              code: "QC-201",
+              context: "Kiểm định áp lực dầm thép trên đoạn $[0; 3]$",
+              question: "Áp lực lên dầm cầu tại vị trí $x \\in [0; 3]$ được cho bởi $f(x) = x^3 - 3x^2 + 5$. Giá trị áp lực **lớn nhất** và **nhỏ nhất** trên đoạn $[0; 3]$ lần lượt là:",
+              options: [
+                "$5$ và $1$",
+                "$9$ và $1$",
+                "$5$ và $0$",
+                "$9$ và $5$"
+              ],
+              correctIndex: 0,
+              explanation: "Ta có $f'(x) = 3x^2 - 6x = 0 \\Leftrightarrow x = 0$ hoặc $x = 2 \\in [0; 3]$. Đo tại các mốc: $f(0) = 5$, $f(2) = 1$, $f(3) = 5$. Vậy tải trọng lớn nhất là $5$ và nhỏ nhất là $1$."
+            },
+            {
+              code: "QC-202",
+              context: "Tối ưu lực căng cáp treo",
+              question: "Lực căng cáp treo phụ thuộc vào thông số $x \\in (1; +\\infty)$ theo công thức $y = x + \\frac{4}{x - 1}$. Mức lực căng **nhỏ nhất** trên khoảng $(1; +\\infty)$ bằng:",
+              options: [
+                "$4$",
+                "$5$",
+                "$3$",
+                "$6$"
+              ],
+              correctIndex: 1,
+              explanation: "Với $x > 1$: $y' = 1 - \\frac{4}{(x-1)^2} = 0 \\Leftrightarrow x - 1 = 2 \\Leftrightarrow x = 3$. Tại $x = 3$, hàm số đạt GTNN là $y(3) = 3 + \\frac{4}{2} = 5$."
+            }
+          ]
+        },
+
+        // =====================================================================
+        // CÔNG ĐOẠN 3 (BÀI 3)
+        // =====================================================================
+        {
+          id: "stage-3",
+          stageNumber: 3,
+          code: "STAGE-03 // BÀI 3",
+          name: "Dựng Hệ Giàn giáo Tiệm cận",
+          sgkTitle: "Bài 3: Đường tiệm cận của đồ thị hàm số",
+          metaphor: "Lắp đặt 3 hệ khung giàn giáo định hình biên giới đồ thị: Sàn ngang (TCN), Trụ đứng (TCĐ) và Dầm nghiêng chịu lực (TCX).",
+          flowCards: [
+            {
+              specCode: "SPEC-3.1",
+              tag: "SÀN NGANG (TCN)",
+              title: "Tiệm cận Ngang $y = y_0$",
+              badgeColor: "sky",
+              formula: "$$\\lim_{x \\to +\\infty} f(x) = y_0 \\quad \\text{hoặc} \\quad \\lim_{x \\to -\\infty} f(x) = y_0$$",
+              note: "Hàm phân thức có bậc tử $\\le$ bậc mẫu mới có tiệm cận ngang."
+            },
+            {
+              specCode: "SPEC-3.2",
+              tag: "TƯỜNG CHẮN (TCĐ)",
+              title: "Tiệm cận Đứng $x = x_0$",
+              badgeColor: "orange",
+              formula: "$$\\lim_{x \\to x_0^+} f(x) = \\pm\\infty \\quad \\text{hoặc} \\quad \\lim_{x \\to x_0^-} f(x) = \\pm\\infty$$",
+              note: "Nghiệm của mẫu số không bị triệt tiêu hoàn toàn bởi tử số và thuộc miền xác định."
+            },
+            {
+              specCode: "SPEC-3.3",
+              tag: "DẦM NGHIÊNG (TCX)",
+              title: "Tiệm cận Xiên $y = ax + b \\; (a \\neq 0)$",
+              badgeColor: "amber",
+              formula: "$$\\lim_{x \\to \\pm\\infty} [f(x) - (ax + b)] = 0 \\iff a = \\lim_{x \\to \\pm\\infty} \\frac{f(x)}{x}, \\; b = \\lim_{x \\to \\pm\\infty}[f(x)-ax]$$",
+              note: "Điểm mới trọng tâm SGK Kết nối tri thức: bắt buộc hệ số góc $a \\neq 0$."
+            },
+            {
+              specCode: "SPEC-3.4",
+              tag: "MẸO CHIA ĐA THỨC",
+              title: "Tách Nhanh TCX Hàm Bậc 2 / Bậc 1",
+              badgeColor: "emerald",
+              formula: "$$y = \\frac{ax^2 + bx + c}{px + q} = \\underbrace{(mx + n)}_{\\text{Tiệm cận xiên}} + \\frac{r}{px + q} \\quad (m \\neq 0, r \\neq 0)$$",
+              note: "Chia tử cho mẫu: thương số bậc nhất $y = mx + n$ chính là phương trình tiệm cận xiên."
+            }
+          ],
+          inspections: [
+            {
+              code: "QC-301",
+              context: "Lắp đặt dầm nghiêng tiệm cận xiên",
+              question: "Trong bản vẽ kết cấu vòm $y = \\frac{2x^2 - 3x + 5}{x - 2}$, thanh giằng **tiệm cận xiên** của đồ thị có phương trình là:",
+              options: [
+                "$y = 2x + 1$",
+                "$y = 2x - 1$",
+                "$y = 2x - 3$",
+                "$y = x - 2$"
+              ],
+              correctIndex: 0,
+              explanation: "Chia đa thức: $2x^2 - 3x + 5 = (2x + 1)(x - 2) + 7 \\implies y = 2x + 1 + \\frac{7}{x - 2}$. Vậy dầm giằng tiệm cận xiên là $y = 2x + 1$."
+            },
+            {
+              code: "QC-302",
+              context: "Kiểm định số trụ đứng & sàn ngang",
+              question: "Hồ sơ kỹ thuật của hàm số $y = \\frac{2x - 1}{x + 3}$ có đường tiệm cận đứng (TCĐ) và tiệm cận ngang (TCN) lần lượt là:",
+              options: [
+                "TCĐ: $x = -3$; TCN: $y = 2$",
+                "TCĐ: $x = 3$; TCN: $y = 2$",
+                "TCĐ: $x = -3$; TCN: $y = -\\frac{1}{3}$",
+                "TCĐ: $x = 2$; TCN: $y = -3$"
+              ],
+              correctIndex: 0,
+              explanation: "Mẫu số $x + 3 = 0 \\Leftrightarrow x = -3$ (TCĐ). Giới hạn tại vô cực $\\lim_{x \\to \\pm\\infty} \\frac{2x - 1}{x + 3} = 2 \\implies y = 2$ (TCN)."
+            }
+          ]
+        },
+
+        // =====================================================================
+        // CÔNG ĐOẠN 4 (BÀI 4)
+        // =====================================================================
+        {
+          id: "stage-4",
+          stageNumber: 4,
+          code: "STAGE-04 // BÀI 4",
+          name: "Đổ Bê tông & Bản vẽ Kết cấu",
+          sgkTitle: "Bài 4: Khảo sát sự biến thiên và vẽ đồ thị của hàm số",
+          metaphor: "Định vị Trụ đỡ trung tâm (Tâm đối xứng $I$) cho 3 kết cấu chủ lực: Vòm bậc 3, Vòm Hyperbol bậc 1/1 và Vòm Dầm nghiêng bậc 2/1.",
+          flowCards: [
+            {
+              specCode: "SPEC-4.1",
+              tag: "KẾT CẤU BẬC 3",
+              title: "Tâm Đối xứng là Điểm Uốn $I$",
+              badgeColor: "amber",
+              formula: "$$y = ax^3 + bx^2 + cx + d: \\quad y''(x_0) = 0 \\iff x_0 = -\\frac{b}{3a} \\implies I(x_0; y_0)$$",
+              note: "Nếu đồ thị có 2 điểm cực trị $A, B$ thì điểm uốn $I$ luôn là trung điểm của đoạn $AB$."
+            },
+            {
+              specCode: "SPEC-4.2",
+              tag: "KẾT CẤU BẬC 1 / BẬC 1",
+              title: "Giao điểm TCĐ & TCN",
+              badgeColor: "sky",
+              formula: "$$y = \\frac{ax + b}{cx + d} \\implies \\text{Tâm đối xứng } I\\left(-\\frac{d}{c}; \\frac{a}{c}\\right) = \\text{TCĐ} \\cap \\text{TCN}$$",
+              note: "Hàm số luôn đơn điệu trên từng khoảng xác định và không có cực trị."
+            },
+            {
+              specCode: "SPEC-4.3",
+              tag: "KẾT CẤU BẬC 2 / BẬC 1",
+              title: "Giao điểm TCĐ & TCX",
+              badgeColor: "emerald",
+              formula: "$$y = \\frac{ax^2 + bx + c}{px + q} = mx + n + \\frac{r}{px + q} \\implies I\\left(-\\frac{q}{p}; m\\left(-\\frac{q}{p}\\right) + n\\right)$$",
+              note: "Trụ tâm đối xứng $I$ là giao điểm của tiệm cận đứng $x = -\\frac{q}{p}$ và tiệm cận xiên $y = mx + n$."
+            },
+            {
+              specCode: "SPEC-4.4",
+              tag: "ĐỌC BẢN VẼ NHANH",
+              title: "Nhận diện Dấu Hệ số $(a, b, c, d)$",
+              badgeColor: "orange",
+              formula: "$$\\text{Nhánh phải } \\nearrow \\iff a > 0; \\quad \\text{Cắt } Oy \\text{ tại } (0; d); \\quad x_1 + x_2 = -\\frac{2b}{3a}, \\; x_1x_2 = \\frac{c}{3a}$$",
+              note: "Quan sát nhánh ngoài cùng bên phải trước tiên để chốt dấu của $a$."
+            }
+          ],
+          inspections: [
+            {
+              code: "QC-401",
+              context: "Định vị trụ đỡ điểm uốn vòm cầu bậc 3",
+              question: "Một nhịp cầu vòm có biên dạng hàm bậc ba $y = x^3 - 3x^2 + 2$. Tọa độ trụ tâm đối xứng (điểm uốn $I$) của nhịp cầu là:",
+              options: [
+                "$I(1; 0)$",
+                "$I(1; 2)$",
+                "$I(-1; -2)$",
+                "$I(0; 2)$"
+              ],
+              correctIndex: 0,
+              explanation: "Ta có $y' = 3x^2 - 6x \\implies y'' = 6x - 6 = 0 \\Leftrightarrow x_0 = 1$. Thay $x_0 = 1$ vào hàm số được $y_0 = 1 - 3 + 2 = 0$. Vậy trụ tâm đối xứng là $I(1; 0)$."
+            },
+            {
+              code: "QC-402",
+              context: "Định vị tâm cân bằng kết cấu Bậc 2 / Bậc 1",
+              question: "Cho kết cấu hàm phân thức $y = \\frac{x^2 - 3x + 4}{x - 1}$. Tọa độ tâm đối xứng $I$ (giao điểm của TCĐ và TCX) là:",
+              options: [
+                "$I(1; -1)$",
+                "$I(1; 1)$",
+                "$I(-1; -3)$",
+                "$I(1; -2)$"
+              ],
+              correctIndex: 0,
+              explanation: "Chia đa thức: $y = x - 2 + \\frac{2}{x - 1} \\implies$ TCĐ là $x = 1$ và TCX là $y = x - 2$. Thay $x = 1$ vào TCX được $y = 1 - 2 = -1 \\implies I(1; -1)$."
+            }
+          ]
+        },
+
+        // =====================================================================
+        // CÔNG ĐOẠN 5 (BÀI 5)
+        // =====================================================================
+        {
+          id: "stage-5",
+          stageNumber: 5,
+          code: "STAGE-05 // BÀI 5",
+          name: "Dự toán Tối ưu Vật liệu & Chi phí",
+          sgkTitle: "Bài 5: Ứng dụng đạo hàm để giải quyết một số vấn đề thực tiễn",
+          metaphor: "Giải quyết bài toán thực địa: Tốc độ bơm tức thời, gập máng tôn thể tích lớn nhất và phương án thi công chi phí thấp nhất.",
+          flowCards: [
+            {
+              specCode: "SPEC-5.1",
+              tag: "ĐỘNG LỰC HỌC",
+              title: "Tốc độ Biến thiên Tức thời",
+              badgeColor: "sky",
+              formula: "$$v(t) = s'(t), \\qquad a(t) = v'(t) = s''(t), \\qquad I(t) = q'(t)$$",
+              note: "Vận tốc đạt cực đại khi gia tốc $a(t) = v'(t) = 0$ và đổi dấu từ $(+)$ sang $(-)$."
+            },
+            {
+              specCode: "SPEC-5.2",
+              tag: "CƠ KHÍ - BAO BÌ",
+              title: "Gập Hộp Tôn Không Nắp Thể tích Max",
+              badgeColor: "amber",
+              formula: "$$\\text{Tấm tôn vuông cạnh } a, \\text{ cắt 4 góc cạnh } x: \\; V(x) = x(a - 2x)^2 \\xrightarrow{V_{\\max}} x = \\frac{a}{6}$$",
+              note: "Công thức giải nhanh hiện trường: cạnh góc cắt tối ưu luôn bằng $\\frac{1}{6}$ cạnh tấm tôn vuông."
+            },
+            {
+              specCode: "SPEC-5.3",
+              tag: "HẠ TẦNG KỸ THUẬT",
+              title: "Tối ưu Tuyến Cáp Qua 2 Địa hình",
+              badgeColor: "orange",
+              formula: "$$C(x) = c_1(d - x) + c_2\\sqrt{x^2 + h^2} \\implies \\text{Giải } C'(x) = -c_1 + \\frac{c_2 x}{\\sqrt{x^2+h^2}} = 0$$",
+              note: "Biểu diễn tổng chi phí theo khoảng cách điểm rẽ $x$ rồi tìm điểm cực tiểu."
+            },
+            {
+              specCode: "SPEC-5.4",
+              tag: "KINH TẾ XÂY DỰNG",
+              title: "Tối đa hóa Lợi nhuận Dự án",
+              badgeColor: "emerald",
+              formula: "$$P(x) = R(x) - C(x) \\text{ đạt cực đại khi } P'(x) = 0 \\iff R'(x) = C'(x)$$",
+              note: "Doanh thu biên $MR = R'(x)$ bằng chi phí biên $MC = C'(x)$."
+            }
+          ],
+          inspections: [
+            {
+              code: "QC-501",
+              context: "Gia công thùng chứa vật liệu tại xưởng",
+              question: "Từ một tấm tôn hình vuông cạnh $60\\text{ cm}$, kỹ sư cắt bỏ 4 hình vuông bằng nhau cạnh $x\\text{ cm}$ ở 4 góc rồi gập thành thùng không nắp. Để thể tích thùng **lớn nhất**, cạnh $x$ phải bằng:",
+              options: [
+                "$10\\text{ cm}$",
+                "$12\\text{ cm}$",
+                "$15\\text{ cm}$",
+                "$20\\text{ cm}$"
+              ],
+              correctIndex: 0,
+              explanation: "Áp dụng công thức tối ưu $V(x) = x(60 - 2x)^2$ với $0 < x < 30$: $V'(x) = 0 \\Leftrightarrow x = \\frac{60}{6} = 10\\text{ cm}$."
+            },
+            {
+              code: "QC-502",
+              context: "Kiểm soát tốc độ xe bồn bê tông",
+              question: "Một xe bồn di chuyển trong công trường với quãng đường $s(t) = -t^3 + 6t^2 + 9t\\text{ (m)}$ ($t \\ge 0$ tính bằng giây). **Vận tốc lớn nhất** của xe đạt được là:",
+              options: [
+                "$21\\text{ m/s}$",
+                "$15\\text{ m/s}$",
+                "$27\\text{ m/s}$",
+                "$36\\text{ m/s}$"
+              ],
+              correctIndex: 0,
+              explanation: "Vận tốc tức thời $v(t) = s'(t) = -3t^2 + 12t + 9 = -3(t - 2)^2 + 21 \\le 21\\text{ m/s}$ (đạt tại $t = 2\\text{ s}$)."
+            }
+          ]
+        }
+      ]
+    };
+
+    // =========================================================================
+    // STATE MANAGEMENT & PERSISTENCE
+    // =========================================================================
+    const SITE_STATE = {
+      activeView: "master", // 'master' | 'stage-1' .. 'stage-5'
+      soundEnabled: true,
+      expandedMasterNodes: {
+        "stage-1": true,
+        "stage-2": true,
+        "stage-3": true,
+        "stage-4": true,
+        "stage-5": true
+      },
+      inspectionAnswers: {} // key: `QC-101` -> selectedIndex
+    };
+
+    function safeLoad(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw !== null ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function safeSave(key, val) {
+      try {
+        localStorage.setItem(key, JSON.stringify(val));
+      } catch (e) {
+        // Ignore storage restrictions
+      }
+    }
+
+    function initSiteState() {
+      SITE_STATE.soundEnabled = Boolean(safeLoad("math12_site_sound", true));
+      const savedAns = safeLoad("math12_site_inspections", {});
+      if (savedAns && typeof savedAns === "object") {
+        SITE_STATE.inspectionAnswers = savedAns;
+      }
+      updateSoundIcons();
+    }
+
+    // =========================================================================
+    // KATEX & LUCIDE RENDER HELPERS
+    // =========================================================================
+    function renderMath(container) {
+      const el = container || document.getElementById("main-workspace");
+      if (!el || typeof renderMathInElement !== "function") return;
+      try {
+        renderMathInElement(el, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          throwOnError: false
+        });
+      } catch (err) {
+        console.warn("KaTeX warning:", err);
+      }
+    }
+
+    function renderIcons() {
+      if (typeof lucide !== "undefined" && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
+    // =========================================================================
+    // WEB AUDIO API: "TING" CHÚC MỪNG NGHIỆM THU ĐẠT
+    // =========================================================================
+    let siteAudioCtx = null;
+    function playInspectionSound(passed) {
+      if (!SITE_STATE.soundEnabled) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        if (!siteAudioCtx) siteAudioCtx = new AudioCtx();
+        if (siteAudioCtx.state === "suspended") siteAudioCtx.resume();
+
+        const now = siteAudioCtx.currentTime;
+        const osc = siteAudioCtx.createOscillator();
+        const gain = siteAudioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(siteAudioCtx.destination);
+
+        if (passed) {
+          // Crisp "Ting-Ting" chime
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(659.25, now); // E5
+          osc.frequency.exponentialRampToValueAtTime(987.77, now + 0.11); // B5
+          osc.frequency.exponentialRampToValueAtTime(1318.51, now + 0.25); // E6
+          gain.gain.setValueAtTime(0.16, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+          osc.start(now);
+          osc.stop(now + 0.42);
+        } else {
+          // Low buzzer warning
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(210, now);
+          osc.frequency.linearRampToValueAtTime(150, now + 0.22);
+          gain.gain.setValueAtTime(0.11, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        }
+      } catch (e) {
+        // Ignore audio errors
+      }
+    }
+
+    function showSiteToast(msg, status = "amber") {
+      const box = document.getElementById("toast-box");
+      if (!box) return;
+      const item = document.createElement("div");
+      const colorMap = {
+        emerald: "bg-emerald-950/95 border-emerald-500 text-emerald-200",
+        rose: "bg-rose-950/95 border-rose-500 text-rose-200",
+        amber: "bg-slate-900/95 border-amber-500 text-amber-300"
+      };
+      item.className = `pointer-events-auto px-4 py-2.5 rounded-lg border-l-4 border text-xs font-mono font-bold uppercase tracking-wide shadow-xl transition-all duration-300 ${
+        colorMap[status] || colorMap.amber
+      }`;
+      item.textContent = msg;
+      box.appendChild(item);
+      setTimeout(() => {
+        item.style.opacity = "0";
+        item.style.transform = "translateY(6px)";
+        setTimeout(() => item.remove(), 260);
+      }, 2200);
+    }
+
+    function toggleSound() {
+      SITE_STATE.soundEnabled = !SITE_STATE.soundEnabled;
+      safeSave("math12_site_sound", SITE_STATE.soundEnabled);
+      updateSoundIcons();
+      showSiteToast(
+        SITE_STATE.soundEnabled ? "🔊 ĐÃ BẬT CÒI NGHIỆM THU HIỆN TRƯỜNG" : "🔇 ĐÃ TẮT ÂM THANH",
+        "amber"
+      );
+    }
+
+    function updateSoundIcons() {
+      const iconName = SITE_STATE.soundEnabled ? "volume-2" : "volume-x";
+      const d = document.getElementById("sound-icon-desktop");
+      const m = document.getElementById("sound-icon-mobile");
+      if (d) d.setAttribute("data-lucide", iconName);
+      if (m) m.setAttribute("data-lucide", iconName);
+      renderIcons();
+    }
+
+    function resetSiteProgress() {
+      SITE_STATE.inspectionAnswers = {};
+      safeSave("math12_site_inspections", {});
+      renderAll();
+      showSiteToast("ĐÃ ĐẶT LẠI TOÀN BỘ HỒ SƠ NGHIỆM THU CÔNG TRÌNH", "amber");
+    }
+
+    // =========================================================================
+    // PROGRESS & PIPELINE NAVIGATION BAR
+    // =========================================================================
+    function getStageInspectionStats(stage) {
+      let passed = 0;
+      let answered = 0;
+      const total = stage.inspections.length;
+      stage.inspections.forEach((ins) => {
+        const chosen = SITE_STATE.inspectionAnswers[ins.code];
+        if (chosen !== undefined) {
+          answered++;
+          if (chosen === ins.correctIndex) passed++;
+        }
+      });
+      return { passed, answered, total };
+    }
+
+    function updateGlobalProgressUI() {
+      let totalItems = 0;
+      let passedItems = 0;
+      CONSTRUCTION_SITE_DATA.stages.forEach((st) => {
+        const s = getStageInspectionStats(st);
+        totalItems += s.total;
+        passedItems += s.passed;
+      });
+      const pct = totalItems > 0 ? Math.round((passedItems / totalItems) * 100) : 0;
+      const pctEl = document.getElementById("site-progress-pct");
+      const barEl = document.getElementById("site-progress-bar");
+      if (pctEl) pctEl.textContent = `${pct}% (${passedItems}/${totalItems} ĐẠT)`;
+      if (barEl) barEl.style.width = `${pct}%`;
+    }
+
+    function renderPipelineNav() {
+      const nav = document.getElementById("pipeline-nav");
+      if (!nav) return;
+
+      const isMaster = SITE_STATE.activeView === "master";
+
+      const masterBtn = `
+        <button
+          type="button"
+          onclick="switchSiteView('master')"
+          class="px-3.5 py-2 rounded-lg font-mono text-xs font-extrabold uppercase tracking-wider border transition flex items-center gap-2 ${
+            isMaster
+              ? "bg-amber-500 text-slate-950 border-amber-300 shadow-md shadow-amber-500/20"
+              : "bg-slate-900 text-slate-300 border-slate-800 hover:border-amber-500/50 hover:text-amber-300"
+          }"
+        >
+          <i data-lucide="map" class="w-4 h-4"></i>
+          <span>[Tổng quan Công trình]</span>
+        </button>
+      `;
+
+      const stageBtns = CONSTRUCTION_SITE_DATA.stages
+        .map((st, idx) => {
+          const isActive = SITE_STATE.activeView === st.id;
+          const stats = getStageInspectionStats(st);
+          const isAllPassed = stats.passed === stats.total;
+
+          const connector = `
+            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 shrink-0"></i>
+          `;
+
+          const statusBadge = isAllPassed
+            ? `<span class="px-1.5 py-0.5 rounded-xs text-[10px] font-mono font-black bg-emerald-500 text-slate-950">ĐẠT ${stats.passed}/${stats.total}</span>`
+            : `<span class="px-1.5 py-0.5 rounded-xs text-[10px] font-mono font-bold ${
+                isActive ? "bg-slate-950/30 text-slate-950" : "bg-slate-800 text-slate-400"
+              }">${stats.passed}/${stats.total}</span>`;
+
+          return `
+            ${connector}
+            <button
+              type="button"
+              onclick="switchSiteView('${st.id}')"
+              class="px-3.5 py-2 rounded-lg font-mono text-xs font-bold uppercase tracking-wide border transition flex items-center gap-2 ${
+                isActive
+                  ? "bg-amber-500 text-slate-950 border-amber-300 shadow-md shadow-amber-500/20 font-extrabold"
+                  : isAllPassed
+                  ? "bg-emerald-950/40 text-emerald-300 border-emerald-500/40 hover:border-emerald-400"
+                  : "bg-slate-900 text-slate-300 border-slate-800 hover:border-amber-500/50 hover:text-amber-300"
+              }"
+            >
+              <span>[Công đoạn ${idx + 1}: ${st.name}]</span>
+              ${statusBadge}
+            </button>
+          `;
+        })
+        .join("");
+
+      nav.innerHTML = masterBtn + stageBtns;
+      updateGlobalProgressUI();
+      renderIcons();
+    }
+
+    function switchSiteView(viewId) {
+      SITE_STATE.activeView = viewId;
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // =========================================================================
+    // SCREEN 1: MASTER BLUEPRINT (SƠ ĐỒ QUY HOẠCH MẶT BẰNG TỔNG QUAN)
+    // =========================================================================
+    function renderMasterBlueprintView() {
+      const bp = CONSTRUCTION_SITE_DATA.masterBlueprint;
+
+      // Top Construction Pipeline Flow Banner (5 steps connected by arrows)
+      const flowStepsHTML = bp.children
+        .map((node, index) => {
+          const stageObj = CONSTRUCTION_SITE_DATA.stages.find((s) => s.id === node.stageId);
+          const stats = stageObj ? getStageInspectionStats(stageObj) : { passed: 0, total: 2 };
+          const isDone = stats.passed === stats.total;
+
+          const arrowHTML =
+            index < bp.children.length - 1
+              ? `
+                <div class="hidden lg:flex items-center justify-center text-amber-400 px-1">
+                  <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </div>
+              `
+              : "";
+
+          return `
+            <div
+              onclick="switchSiteView('${node.stageId}')"
+              class="cursor-pointer flex-1 min-w-[180px] p-3.5 rounded-xl bg-slate-900/90 border-2 ${
+                isDone ? "border-emerald-500/60" : "border-sky-500/40 hover:border-amber-400"
+              } transition group relative"
+            >
+              <div class="flex items-center justify-between text-[10px] font-mono font-bold uppercase mb-1">
+                <span class="text-amber-400">${node.code}</span>
+                <span class="${isDone ? "text-emerald-400" : "text-sky-400"}">
+                  ${isDone ? "✓ ĐÃ NGHIỆM THU" : `QC ${stats.passed}/${stats.total}`}
+                </span>
+              </div>
+              <div class="text-xs sm:text-sm font-extrabold text-white group-hover:text-amber-300 transition">
+                ${node.shortAction}
+              </div>
+              <div class="text-[11px] text-slate-400 mt-0.5 truncate">
+                Bài ${index + 1} SGK
+              </div>
+            </div>
+            ${arrowHTML}
+          `;
+        })
+        .join("");
+
+      // Interactive Collapsible Master Tree Nodes
+      const masterTreeCardsHTML = bp.children
+        .map((node, idx) => {
+          const isOpen = SITE_STATE.expandedMasterNodes[node.stageId] !== false;
+          const stageObj = CONSTRUCTION_SITE_DATA.stages.find((s) => s.id === node.stageId);
+          const stats = stageObj ? getStageInspectionStats(stageObj) : { passed: 0, total: 2 };
+
+          const subItemsHTML = node.subNodes
+            .map(
+              (subText, sIdx) => `
+              <div class="p-3 rounded-lg bg-slate-950/85 border border-dashed border-sky-500/40 flex items-start gap-2.5">
+                <span class="px-1.5 py-0.5 rounded-xs bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0 mt-0.5">
+                  0${idx + 1}.${sIdx + 1}
+                </span>
+                <div class="text-xs sm:text-sm text-slate-200 leading-relaxed">${subText}</div>
+              </div>
+            `
+            )
+            .join("");
+
+          return `
+            <div class="tech-card rounded-xl border-2 border-slate-700/90 hover:border-amber-500/60 transition overflow-hidden shadow-lg">
+              <!-- Card Header (Click to Collapse/Expand) -->
+              <div class="p-4 bg-slate-900/95 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                <div
+                  onclick="toggleMasterNode('${node.stageId}')"
+                  class="flex items-center gap-3 cursor-pointer select-none flex-1 min-w-[240px]"
+                >
+                  <button
+                    type="button"
+                    class="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/40 text-amber-400 flex items-center justify-center shrink-0"
+                    aria-label="Mở rộng hoặc thu gọn nhánh"
+                  >
+                    <i
+                      id="master-chevron-${node.stageId}"
+                      data-lucide="chevron-down"
+                      class="w-4 h-4 transition-transform duration-200"
+                      style="transform: ${isOpen ? "rotate(0deg)" : "rotate(-90deg)"}"
+                    ></i>
+                  </button>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="px-2 py-0.5 rounded-xs text-[10px] font-mono font-extrabold bg-amber-500 text-slate-950 uppercase">
+                        ${node.code}
+                      </span>
+                      <span class="text-xs font-mono text-sky-400 font-semibold">
+                        [${node.shortAction}]
+                      </span>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-extrabold text-white mt-1">
+                      ${node.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <!-- Right Actions: Formula Preview & Direct Enter Stage Button -->
+                <div class="flex items-center gap-2.5">
+                  <span class="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-slate-950 border border-slate-800 text-emerald-400">
+                    Nghiệm thu: ${stats.passed}/${stats.total}
+                  </span>
+                  <button
+                    type="button"
+                    onclick="switchSiteView('${node.stageId}')"
+                    class="px-3.5 py-2 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-mono text-xs font-extrabold uppercase tracking-wider transition flex items-center gap-1.5 shadow-md"
+                  >
+                    <span>Vào Công đoạn ${idx + 1}</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Collapsible Body -->
+              <div
+                id="master-branch-${node.stageId}"
+                class="blueprint-branch p-4 space-y-3 ${isOpen ? "" : "collapsed"}"
+                style="max-height: 1200px;"
+              >
+                <!-- One-line Key Blueprint Formula -->
+                <div class="px-4 py-2.5 rounded-lg bg-sky-950/40 border border-sky-500/40 text-sky-100 overflow-x-auto text-xs sm:text-sm">
+                  ${node.summaryFormula}
+                </div>
+
+                <!-- Sub-branches Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                  ${subItemsHTML}
+                </div>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+
+      return `
+        <div class="space-y-6">
+          <!-- Master Blueprint Header Banner -->
+          <section class="tech-card rounded-2xl border-2 border-amber-500/60 p-5 sm:p-6 shadow-2xl">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-dashed border-slate-700">
+              <div class="space-y-1.5">
+                <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
+                  <i data-lucide="compass" class="w-4 h-4"></i>
+                  <span>SƠ ĐỒ QUY HOẠCH MẶT BẰNG (MASTER BLUEPRINT)</span>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight uppercase">
+                  Dây chuyền 5 Công đoạn Thi công Hàm số (Chương 1 - Toán 12)
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-300">
+                  Nhấn vào từng công đoạn trên dây chuyền để mở <strong>Phiếu Kiểm định Kỹ thuật</strong> và thực hiện <strong>Nghiệm thu Hiện trường</strong>.
+                </p>
+              </div>
+
+              <!-- Expand / Collapse All Master Tree -->
+              <div class="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onclick="setAllMasterNodes(true)"
+                  class="px-3 py-2 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/50 text-sky-300 font-mono text-xs font-bold uppercase transition flex items-center gap-1.5"
+                >
+                  <i data-lucide="unfold-vertical" class="w-4 h-4"></i>
+                  <span>Mở toàn bộ bản vẽ</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="setAllMasterNodes(false)"
+                  class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-300 font-mono text-xs font-bold uppercase transition flex items-center gap-1.5"
+                >
+                  <i data-lucide="fold-vertical" class="w-4 h-4"></i>
+                  <span>Thu gọn</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 5-Stage Construction Pipeline Diagram -->
+            <div class="pt-5">
+              <div class="text-[11px] font-mono font-bold uppercase text-slate-400 mb-2.5 flex items-center gap-1.5">
+                <i data-lucide="git-commit" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>LUỒNG THI CÔNG LIÊN HOÀN: ĐO ĐỘ DỐC → KIỂM TRA TẢI TRỌNG → DỰNG GIÀN GIÁO → ĐỔ BÊ TÔNG KẾT CẤU → TỐI ƯU DỰ TOÁN</span>
+              </div>
+              <div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-2.5">
+                ${flowStepsHTML}
+              </div>
+            </div>
+          </section>
+
+          <!-- Collapsible Master Tree of All 5 Stages -->
+          <section class="space-y-3.5">
+            ${masterTreeCardsHTML}
+          </section>
+        </div>
+      `;
+    }
+
+    function toggleMasterNode(stageId) {
+      const branch = document.getElementById(`master-branch-${stageId}`);
+      const icon = document.getElementById(`master-chevron-${stageId}`);
+      if (!branch) return;
+
+      const isCurrentlyOpen = !branch.classList.contains("collapsed");
+      SITE_STATE.expandedMasterNodes[stageId] = !isCurrentlyOpen;
+
+      if (isCurrentlyOpen) {
+        branch.classList.add("collapsed");
+        if (icon) icon.style.transform = "rotate(-90deg)";
+      } else {
+        branch.classList.remove("collapsed");
+        if (icon) icon.style.transform = "rotate(0deg)";
+      }
+    }
+
+    function setAllMasterNodes(open) {
+      CONSTRUCTION_SITE_DATA.stages.forEach((st) => {
+        SITE_STATE.expandedMasterNodes[st.id] = open;
+      });
+      renderAll();
+    }
+
+    // =========================================================================
+    // SCREEN 2: STAGE DETAIL VIEW (CHỈ GỒM 2 KHU VỰC: A. THẺ TƯ DUY & B. NGHIỆM THU)
+    // =========================================================================
+    function renderStageDetailView(stage) {
+      const stats = getStageInspectionStats(stage);
+
+      const badgeStyleMap = {
+        amber: {
+          border: "border-amber-500/60",
+          tagBg: "bg-amber-500 text-slate-950",
+          formulaBg: "bg-amber-950/30 border-amber-500/40 text-amber-100"
+        },
+        orange: {
+          border: "border-orange-500/60",
+          tagBg: "bg-orange-500 text-white",
+          formulaBg: "bg-orange-950/30 border-orange-500/40 text-orange-100"
+        },
+        sky: {
+          border: "border-sky-500/60",
+          tagBg: "bg-sky-500 text-slate-950",
+          formulaBg: "bg-sky-950/40 border-sky-500/40 text-sky-100"
+        },
+        emerald: {
+          border: "border-emerald-500/60",
+          tagBg: "bg-emerald-500 text-slate-950",
+          formulaBg: "bg-emerald-950/30 border-emerald-500/40 text-emerald-100"
+        }
+      };
+
+      // AREA A: SƠ ĐỒ TƯ DUY RÚT GỌN (4 THẺ KIỂM ĐỊNH KỸ THUẬT)
+      const flowCardsHTML = stage.flowCards
+        .map((card, idx) => {
+          const st = badgeStyleMap[card.badgeColor] || badgeStyleMap.amber;
+          return `
+            <div class="tech-card rounded-xl border-2 ${st.border} p-4 sm:p-5 flex flex-col justify-between gap-3 shadow-lg relative">
+              <!-- 4 Corner Rivets -->
+              <span class="tech-rivet absolute top-2 left-2"></span>
+              <span class="tech-rivet absolute top-2 right-2"></span>
+              <span class="tech-rivet absolute bottom-2 left-2"></span>
+              <span class="tech-rivet absolute bottom-2 right-2"></span>
+
+              <div class="space-y-2.5 pl-1 pr-1">
+                <!-- Card Technical Header -->
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-2 py-0.5 rounded-xs font-mono text-[10px] font-black uppercase tracking-wider ${st.tagBg}">
+                    ${card.specCode} • ${card.tag}
+                  </span>
+                  <span class="font-mono text-xs font-bold text-slate-400">
+                    [NODE 0${idx + 1}]
+                  </span>
+                </div>
+
+                <!-- Card Title -->
+                <h4 class="text-base sm:text-lg font-extrabold text-white tracking-tight">
+                  ${card.title}
+                </h4>
+
+                <!-- Crisp 1-line KaTeX Formula Box -->
+                <div class="px-3.5 py-2.5 rounded-lg border border-dashed ${st.formulaBg} overflow-x-auto text-xs sm:text-sm">
+                  ${card.formula}
+                </div>
+              </div>
+
+              <!-- Concise 1-line Engineering Note -->
+              <div class="pt-2 border-t border-slate-800/90 flex items-center gap-2 text-xs text-slate-300 pl-1 pr-1">
+                <i data-lucide="wrench" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+                <span>${card.note}</span>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+
+      // AREA B: PHIẾU NGHIỆM THU HIỆN TRƯỜNG (2 CÂU TRẮC NGHIỆM THỰC TẾ NHANH)
+      const letters = ["A", "B", "C", "D"];
+      const inspectionsHTML = stage.inspections
+        .map((ins, qIdx) => {
+          const chosenIdx = SITE_STATE.inspectionAnswers[ins.code];
+          const isAnswered = chosenIdx !== undefined;
+          const isPassed = isAnswered && chosenIdx === ins.correctIndex;
+
+          const optionsHTML = ins.options
+            .map((opt, oIdx) => {
+              let btnClass =
+                "bg-slate-900/90 border-slate-700 text-slate-200 hover:border-amber-400 hover:bg-slate-800/90";
+              let badgeClass = "bg-slate-800 text-amber-400 border border-slate-600";
+              let iconRight = "";
+
+              if (isAnswered) {
+                if (oIdx === ins.correctIndex) {
+                  btnClass =
+                    "bg-emerald-950/80 border-2 border-emerald-400 text-emerald-100 font-bold shadow-md shadow-emerald-500/10";
+                  badgeClass = "bg-emerald-500 text-slate-950 font-black";
+                  iconRight = `<span class="text-[10px] font-mono font-black uppercase px-2 py-0.5 rounded-xs bg-emerald-500 text-slate-950 shrink-0">ĐẠT CHUẨN ✓</span>`;
+                } else if (oIdx === chosenIdx && chosenIdx !== ins.correctIndex) {
+                  btnClass = "bg-rose-950/80 border-2 border-rose-500 text-rose-200 font-semibold";
+                  badgeClass = "bg-rose-600 text-white font-black";
+                  iconRight = `<span class="text-[10px] font-mono font-black uppercase px-2 py-0.5 rounded-xs bg-rose-600 text-white shrink-0">SAI LỆCH ✗</span>`;
+                } else {
+                  btnClass = "bg-slate-950/50 border-slate-800 text-slate-500 opacity-65";
+                }
+              }
+
+              return `
+                <button
+                  type="button"
+                  onclick="submitInspection('${stage.id}', '${ins.code}', ${oIdx})"
+                  class="w-full text-left p-3.5 rounded-xl border transition-all duration-150 flex items-center justify-between gap-3 ${btnClass}"
+                >
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="w-7 h-7 rounded-md font-mono text-xs font-bold flex items-center justify-center shrink-0 ${badgeClass}">
+                      ${letters[oIdx]}
+                    </span>
+                    <span class="text-xs sm:text-sm">${opt}</span>
+                  </div>
+                  ${iconRight}
+                </button>
+              `;
+            })
+            .join("");
+
+          const specExplanationHTML = isAnswered
+            ? `
+              <div class="mt-3 p-3.5 rounded-xl border-l-4 font-mono text-xs leading-relaxed ${
+                isPassed
+                  ? "bg-emerald-950/60 border-emerald-400 text-emerald-100"
+                  : "bg-rose-950/60 border-rose-500 text-rose-100"
+              }">
+                <div class="font-extrabold uppercase mb-1 flex items-center gap-1.5">
+                  <i data-lucide="${isPassed ? "BadgeCheck" : "AlertOctagon"}" class="w-4 h-4"></i>
+                  <span>${
+                    isPassed
+                      ? "BIÊN BẢN NGHIỆM THU: ĐẠT YÊU CẦU KỸ THUẬT!"
+                      : `CẢNH BÁO SAI SỐ — THÔNG SỐ ĐÚNG LÀ PHƯƠNG ÁN [${letters[ins.correctIndex]}]`
+                  }</span>
+                </div>
+                <div class="font-sans text-xs sm:text-sm text-slate-200">${ins.explanation}</div>
+              </div>
+            `
+            : "";
+
+          return `
+            <div class="p-4 sm:p-5 rounded-xl bg-slate-950/90 border-2 ${
+              isAnswered
+                ? isPassed
+                  ? "border-emerald-500/60"
+                  : "border-rose-500/60"
+                : "border-slate-800"
+            } space-y-3.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-xs font-mono text-[11px] font-black bg-orange-600 text-white uppercase">
+                    PHIẾU ${ins.code}
+                  </span>
+                  <span class="text-xs font-mono font-bold text-amber-400 uppercase">
+                    // ${ins.context}
+                  </span>
+                </div>
+                <span class="text-[11px] font-mono font-bold uppercase ${
+                  isAnswered
+                    ? isPassed
+                      ? "text-emerald-400"
+                      : "text-rose-400"
+                    : "text-slate-500"
+                }">
+                  ${isAnswered ? (isPassed ? "● ĐÃ NGHIỆM THU ĐẠT" : "● CẦN HIỆU CHỈNH") : "○ CHỜ KIỂM ĐỊNH"}
+                </span>
+              </div>
+
+              <div class="text-xs sm:text-sm font-medium text-white leading-relaxed">
+                ${ins.question}
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                ${optionsHTML}
+              </div>
+
+              ${specExplanationHTML}
+            </div>
+          `;
+        })
+        .join("");
+
+      // Stage Navigation Footer
+      const prevStage = CONSTRUCTION_SITE_DATA.stages.find((s) => s.stageNumber === stage.stageNumber - 1);
+      const nextStage = CONSTRUCTION_SITE_DATA.stages.find((s) => s.stageNumber === stage.stageNumber + 1);
+
+      return `
+        <div class="space-y-6">
+          <!-- Stage Banner Header -->
+          <section class="tech-card rounded-2xl border-2 border-amber-500/70 overflow-hidden shadow-xl">
+            <div class="h-2 w-full hazard-stripe"></div>
+            <div class="p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div class="space-y-1.5">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-xs font-mono text-xs font-black bg-amber-500 text-slate-950 uppercase">
+                    ${stage.code}
+                  </span>
+                  <span class="text-xs font-mono font-bold text-sky-400 uppercase">
+                    ${stage.sgkTitle}
+                  </span>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
+                  Công đoạn ${stage.stageNumber}: ${stage.name}
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-300">
+                  ${stage.metaphor}
+                </p>
+              </div>
+
+              <div class="flex items-center gap-3 shrink-0 bg-slate-950/90 px-4 py-2.5 rounded-xl border border-slate-800">
+                <div>
+                  <div class="text-[10px] font-mono uppercase text-slate-400">Trạng thái Công đoạn</div>
+                  <div class="text-sm font-mono font-extrabold ${
+                    stats.passed === stats.total ? "text-emerald-400" : "text-amber-400"
+                  }">
+                    ${stats.passed === stats.total ? "ĐẠT NGHIỆM THU 100%" : `ĐẠT ${stats.passed}/${stats.total} HẠNG MỤC`}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- =============================================================== -->
+          <!-- KHU VỰC A: SƠ ĐỒ TƯ DUY RÚT GỌN (PHIẾU KIỂM ĐỊNH KỸ THUẬT)     -->
+          <!-- =============================================================== -->
+          <section class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-xs font-mono text-xs font-black bg-sky-500 text-slate-950 uppercase">
+                  KHU VỰC A
+                </span>
+                <h3 class="text-sm sm:text-base font-extrabold uppercase tracking-wide text-white">
+                  Sơ đồ Tư duy Rút gọn — Phiếu Kiểm định Kỹ thuật (4 Thẻ Cốt lõi)
+                </h3>
+              </div>
+              <span class="hidden sm:inline-block text-xs font-mono text-sky-400">
+                [VISUAL FLOW CARDS • 1-LINE KATEX]
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              ${flowCardsHTML}
+            </div>
+          </section>
+
+          <!-- =============================================================== -->
+          <!-- KHU VỰC B: PHIẾU NGHIỆM THU HIỆN TRƯỜNG (THỬ THÁCH NHANH)       -->
+          <!-- =============================================================== -->
+          <section id="stage-inspection-section" class="tech-card rounded-2xl border-2 border-orange-500/60 p-5 sm:p-6 space-y-4 shadow-xl">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-dashed border-slate-700">
+              <div class="flex items-center gap-2.5">
+                <span class="px-2 py-0.5 rounded-xs font-mono text-xs font-black bg-orange-500 text-white uppercase">
+                  KHU VỰC B
+                </span>
+                <div>
+                  <h3 class="text-sm sm:text-base font-extrabold uppercase tracking-wide text-white">
+                    Phiếu Nghiệm thu Hiện trường (Thử thách Trắc nghiệm Nhanh)
+                  </h3>
+                </div>
+              </div>
+              <span class="px-3 py-1 rounded-md font-mono text-xs font-bold bg-slate-950 border border-slate-800 text-amber-400">
+                Kết quả: ${stats.passed}/${stats.total} Phiếu Đạt
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              ${inspectionsHTML}
+            </div>
+          </section>
+
+          <!-- Bottom Stage Pipeline Controls -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+            ${
+              prevStage
+                ? `<button
+                     type="button"
+                     onclick="switchSiteView('${prevStage.id}')"
+                     class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono font-bold uppercase text-slate-200 transition flex items-center gap-2"
+                   >
+                     <i data-lucide="arrow-left" class="w-4 h-4 text-amber-400"></i>
+                     <span>Lùi về Công đoạn ${prevStage.stageNumber}: ${prevStage.name}</span>
+                   </button>`
+                : `<button
+                     type="button"
+                     onclick="switchSiteView('master')"
+                     class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-mono font-bold uppercase text-slate-200 transition flex items-center gap-2"
+                   >
+                     <i data-lucide="map" class="w-4 h-4 text-amber-400"></i>
+                     <span>Về Sơ đồ Quy hoạch Tổng thể</span>
+                   </button>`
+            }
+
+            ${
+              nextStage
+                ? `<button
+                     type="button"
+                     onclick="switchSiteView('${nextStage.id}')"
+                     class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-mono font-black uppercase tracking-wider transition flex items-center gap-2 shadow-lg shadow-amber-500/20"
+                   >
+                     <span>Chuyển sang Công đoạn ${nextStage.stageNumber}: ${nextStage.name}</span>
+                     <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                   </button>`
+                : `<button
+                     type="button"
+                     onclick="switchSiteView('master')"
+                     class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-mono font-black uppercase tracking-wider transition flex items-center gap-2 shadow-lg shadow-emerald-500/20"
+                   >
+                     <span>Hoàn tất • Về Bảng Tổng kết Công trình</span>
+                     <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                   </button>`
+            }
+          </div>
+        </div>
+      `;
+    }
+
+    function submitInspection(stageId, qcCode, optionIndex) {
+      const stage = CONSTRUCTION_SITE_DATA.stages.find((s) => s.id === stageId);
+      if (!stage) return;
+      const ins = stage.inspections.find((i) => i.code === qcCode);
+      if (!ins) return;
+
+      SITE_STATE.inspectionAnswers[qcCode] = optionIndex;
+      safeSave("math12_site_inspections", SITE_STATE.inspectionAnswers);
+
+      const passed = optionIndex === ins.correctIndex;
+      playInspectionSound(passed);
+
+      if (passed) {
+        showSiteToast(`✓ PHIẾU ${qcCode}: NGHIỆM THU ĐẠT CHUẨN!`, "emerald");
+      } else {
+        showSiteToast(`✗ PHIẾU ${qcCode}: THÔNG SỐ CHƯA ĐẠT — XEM BẢNG GIẢI THÍCH`, "rose");
+      }
+
+      renderAll();
+    }
+
+    // =========================================================================
+    // MASTER RENDER ORCHESTRATOR
+    // =========================================================================
+    function renderAll() {
+      renderPipelineNav();
+      const workspace = document.getElementById("main-workspace");
+      if (!workspace) return;
+
+      if (SITE_STATE.activeView === "master") {
+        workspace.innerHTML = renderMasterBlueprintView();
+      } else {
+        const stage = CONSTRUCTION_SITE_DATA.stages.find((s) => s.id === SITE_STATE.activeView);
+        if (stage) {
+          workspace.innerHTML = renderStageDetailView(stage);
+        }
+      }
+
+      renderIcons();
+      renderMath(workspace);
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initSiteState();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
